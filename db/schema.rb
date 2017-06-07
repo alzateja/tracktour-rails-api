@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 20170606211357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artists", force: :cascade do |t|
+    t.string   "artist_name"
+    t.integer  "artist_api_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "attended_concerts", force: :cascade do |t|
+    t.integer  "wishlist_id"
+    t.integer  "concert_id"
+    t.string   "concert_attendance_status"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["concert_id"], name: "index_attended_concerts_on_concert_id", using: :btree
+    t.index ["wishlist_id"], name: "index_attended_concerts_on_wishlist_id", using: :btree
+  end
+
+  create_table "concerts", force: :cascade do |t|
+    t.string   "location"
+    t.date     "concert_date"
+    t.string   "concert_name"
+    t.string   "venue_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "examples", force: :cascade do |t|
     t.text     "text",       null: false
@@ -33,5 +59,19 @@ ActiveRecord::Schema.define(version: 2) do
     t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.string   "wish_status"
+    t.integer  "user_id"
+    t.integer  "artist_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["artist_id"], name: "index_wishlists_on_artist_id", using: :btree
+    t.index ["user_id"], name: "index_wishlists_on_user_id", using: :btree
+  end
+
+  add_foreign_key "attended_concerts", "concerts"
+  add_foreign_key "attended_concerts", "wishlists"
   add_foreign_key "examples", "users"
+  add_foreign_key "wishlists", "artists"
+  add_foreign_key "wishlists", "users"
 end
