@@ -81,7 +81,7 @@ https://alzateja.github.io/tracktour-browser/
 
 ## Link to Client github
 
-https://github.com/alzateja/tracktour-rails-api
+https://github.com/alzateja/tracktour-browser
 
 
 # rails-api-template
