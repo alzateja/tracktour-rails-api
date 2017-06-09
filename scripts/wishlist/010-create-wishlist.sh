@@ -1,4 +1,4 @@
-TOKEN="BAhJIiU3YTljYjE1MTkxYzg0ZmI2MDJjNzIyZjM3OGZiOTUwNQY6BkVG--4def82b626fa145e3a0482c5cd892ccb11a25520"
+TOKEN="BAhJIiUzODUyYTBkMTI1MzVhYjBlNGQ1OTg4YTlkNmU3NDFmZAY6BkVG--671e90d66fa6a4a2e6c08841c82e345181d5bfbb"
 
 curl --include --request POST http://localhost:4741/wishlists \
   --header "Content-Type: application/json" \
