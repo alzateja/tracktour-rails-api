@@ -1,9 +1,11 @@
-class WishlistsController < ApplicationController
+class WishlistsController < OpenReadController
   before_action :set_wishlist, only: [:show, :update, :destroy]
 
   # GET /wishlists
   def index
-    @wishlists = Wishlist.all
+    # @wishlists = Wishlist.all
+
+    @wishlists = current_user.wishlists.all
 
     render json: @wishlists
   end
@@ -15,8 +17,7 @@ class WishlistsController < ApplicationController
 
   # POST /wishlists
   def create
-    @wishlist = Wishlist.new(wishlist_params)
-
+    @wishlist = current_user.wishlists.build(wishlist_params)
     if @wishlist.save
       render json: @wishlist, status: :created, location: @wishlist
     else
@@ -36,12 +37,13 @@ class WishlistsController < ApplicationController
   # DELETE /wishlists/1
   def destroy
     @wishlist.destroy
+    head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_wishlist
-      @wishlist = Wishlist.find(params[:id])
+      @wishlist = current_user.wishlists.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
